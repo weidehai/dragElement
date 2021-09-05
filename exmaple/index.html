@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../dist/main.js"></script>
+    <style>
+      .slider {
+          position: relative;
+          height: 200px;
+          width: 60px;
+          background: linear-gradient(to bottom, #fff,#000);
+      }
+      .container {
+        background-color: #f00;
+        position: absolute;
+        height: 50px;
+        width: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider">
+      <div class="container"></div>
+    </div>
+    <script>
+      dragable(document.querySelector('.container'),{mode:'vertical',boundary:{left:0,right:60,top:0,bottom:150}});
+    </script>
+  </body>
+</html>

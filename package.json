@@ -1,0 +1,73 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "wone",
+  "license": "MIT",
+  "bin": {},
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build-dev": "cross-env NODE_ENV=development rollup --config --watch",
+    "build-rls": "cross-env NODE_ENV=production rollup --config",
+    "test": "jest",
+    "build": "build-dev && yarn test",
+    "pu": "yarn test && yarn build-rls && yarn publish",
+    "sync:github": "git add -A && git commit && git push -u origin master",
+    "prepare": "husky install",
+    "lint": "eslint src/**"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.5",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.10",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "husky": "^7.0.2",
+    "jest": "^27.1.0",
+    "prettier": "^2.3.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "airbnb-typescript-prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "@typescript-eslint/no-var-requires": "off",
+      "import/prefer-default-export":"off",
+      "@typescript-eslint/no-shadow":"off",
+      "no-param-reassign":"warn",
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

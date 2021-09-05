@@ -1,0 +1,6 @@
+/*.config.js
+**/config/*.config.js
+*.json
+**/test/*
+/dist
+/node_modules
