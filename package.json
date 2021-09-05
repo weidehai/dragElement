@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "drag-element",
   "version": "1.0.0",
-  "description": "",
+  "description": "enable drag a element",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "wone",
