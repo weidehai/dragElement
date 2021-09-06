@@ -7,5 +7,17 @@ interface options {
         bottom: number;
     };
 }
-export default function Dragable(ele: HTMLElement, options: options): void;
-export {};
+interface dragable {
+    ele: HTMLElement;
+    options: options;
+    on: (ev: eventType, cb: Function) => void;
+}
+interface DragableConstructor {
+    new (ele: HTMLElement, options: options): dragable;
+}
+interface Event {
+    move: Function[];
+}
+declare type eventType = keyof Event;
+declare const Dragable: DragableConstructor;
+export default Dragable;

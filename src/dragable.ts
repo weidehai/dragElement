@@ -8,9 +8,14 @@ interface options {
   };
 }
 
-interface Dragable {
+interface dragable {
   ele: HTMLElement;
   options: options;
+  on: (ev: eventType, cb: Function) => void;
+}
+
+interface DragableConstructor {
+  new (ele: HTMLElement, options: options): dragable;
 }
 
 interface Event {
@@ -29,7 +34,7 @@ function emit(ev: eventType) {
   });
 }
 
-function init(dg: Dragable) {
+function init(dg: dragable) {
   let x: number;
   let y: number;
   let offsetX: number;
@@ -98,12 +103,14 @@ function init(dg: Dragable) {
   });
 }
 
-export default function Dragable(ele: HTMLElement, options: options): void {
+const Dragable = function (this: dragable, ele: HTMLElement, options: options): void {
   this.options = options;
   this.ele = ele;
   init(this);
-}
+} as unknown as DragableConstructor;
 
 Dragable.prototype.on = function (ev: eventType, cb: Function) {
   event[ev].push(cb);
 };
+
+export default Dragable;
