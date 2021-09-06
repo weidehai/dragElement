@@ -17,6 +17,7 @@
     "test": "jest",
     "build": "build-dev && yarn test",
     "pu": "yarn test && yarn build-rls && yarn publish",
+    "pu:github": "yarn test && yarn build-rls && yarn sync:github",
     "sync:github": "git add -A && git commit && git push -u origin master",
     "prepare": "husky install",
     "lint": "eslint src/**"
