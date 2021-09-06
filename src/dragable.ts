@@ -55,12 +55,21 @@ export default function dragable(ele: HTMLElement, options: options): void {
   const done = () => {
     document.removeEventListener('mousemove', mvFn);
     document.removeEventListener('mouseup', done);
+    document.onselectstart = null;
+    document.ondragstart = null;
   };
   ele.addEventListener('mousedown', (ev: MouseEvent) => {
     elePositionX = ele.offsetLeft;
     elePositionY = ele.offsetTop;
     x = ev.pageX;
     y = ev.pageY;
+    // 防止drag事件和mousemove冲突
+    document.onselectstart = function () {
+      return false;
+    };
+    document.ondragstart = function () {
+      return false;
+    };
     document.addEventListener('mousemove', mvFn);
     document.addEventListener('mouseup', done);
   });
