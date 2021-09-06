@@ -8,13 +8,35 @@ interface options {
   };
 }
 
-export default function dragable(ele: HTMLElement, options: options): void {
+interface Dragable {
+  ele: HTMLElement;
+  options: options;
+}
+
+interface Event {
+  move: Function[];
+}
+
+type eventType = keyof Event;
+
+const event: Event = {
+  move: [],
+};
+
+function emit(ev: eventType) {
+  event[ev].forEach((cb) => {
+    cb();
+  });
+}
+
+function init(dg: Dragable) {
   let x: number;
   let y: number;
   let offsetX: number;
   let offsetY: number;
   let elePositionX: number;
   let elePositionY: number;
+  const { ele, options } = dg;
   const calculate = () => {
     const move: { x: number; y: number } = { x: elePositionX + offsetX, y: elePositionY + offsetY };
     if (move.y > options.boundary.bottom) {
@@ -51,6 +73,7 @@ export default function dragable(ele: HTMLElement, options: options): void {
       default:
         break;
     }
+    emit('move');
   };
   const done = () => {
     document.removeEventListener('mousemove', mvFn);
@@ -74,3 +97,13 @@ export default function dragable(ele: HTMLElement, options: options): void {
     document.addEventListener('mouseup', done);
   });
 }
+
+export default function Dragable(ele: HTMLElement, options: options): void {
+  this.options = options;
+  this.ele = ele;
+  init(this);
+}
+
+Dragable.prototype.on = function (ev: eventType, cb: Function) {
+  event[ev].push(cb);
+};

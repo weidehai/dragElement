@@ -12,8 +12,8 @@
     "dist"
   ],
   "scripts": {
-    "build-dev": "cross-env NODE_ENV=development rollup --config --watch",
-    "build-rls": "cross-env NODE_ENV=production rollup --config",
+    "build-dev": "node build/clear.js && cross-env NODE_ENV=development rollup --config --watch",
+    "build-rls": "node build/clear.js && cross-env NODE_ENV=production rollup --config",
     "test": "jest",
     "build": "build-dev && yarn test",
     "pu": "yarn test && yarn build-rls && yarn publish",
@@ -55,6 +55,7 @@
       "import/prefer-default-export":"off",
       "@typescript-eslint/no-shadow":"off",
       "no-param-reassign":"warn",
+      "@typescript-eslint/ban-types":"off",
       "prettier/prettier": [
         "error",
         {

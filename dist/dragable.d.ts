@@ -7,5 +7,5 @@ interface options {
         bottom: number;
     };
 }
-export default function dragable(ele: HTMLElement, options: options): void;
+export default function Dragable(ele: HTMLElement, options: options): void;
 export {};
