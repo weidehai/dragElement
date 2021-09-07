@@ -10,6 +10,7 @@ interface options {
 interface dragable {
     ele: HTMLElement;
     options: options;
+    event: Event;
     on: (ev: eventType, cb: Function) => void;
 }
 interface DragableConstructor {

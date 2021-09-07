@@ -11,6 +11,7 @@ interface options {
 interface dragable {
   ele: HTMLElement;
   options: options;
+  event: Event;
   on: (ev: eventType, cb: Function) => void;
 }
 
@@ -23,16 +24,6 @@ interface Event {
 }
 
 type eventType = keyof Event;
-
-const event: Event = {
-  move: [],
-};
-
-function emit(ev: eventType) {
-  event[ev].forEach((cb) => {
-    cb();
-  });
-}
 
 function init(dg: dragable) {
   let x: number;
@@ -78,7 +69,7 @@ function init(dg: dragable) {
       default:
         break;
     }
-    emit('move');
+    this.emit('move');
   };
   const done = () => {
     document.removeEventListener('mousemove', mvFn);
@@ -106,11 +97,18 @@ function init(dg: dragable) {
 const Dragable = function (this: dragable, ele: HTMLElement, options: options): void {
   this.options = options;
   this.ele = ele;
+  this.event = { move: [] };
   init(this);
 } as unknown as DragableConstructor;
 
 Dragable.prototype.on = function (ev: eventType, cb: Function) {
-  event[ev].push(cb);
+  this.event[ev].push(cb);
+};
+
+Dragable.prototype.emit = function (ev: eventType) {
+  this.event[ev].forEach((cb: Function) => {
+    cb();
+  });
 };
 
 export default Dragable;
