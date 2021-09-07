@@ -13,6 +13,7 @@ interface dragable {
   options: options;
   event: Event;
   on: (ev: eventType, cb: Function) => void;
+  emit: (ev: eventType) => void;
 }
 
 interface DragableConstructor {
@@ -69,7 +70,7 @@ function init(dg: dragable) {
       default:
         break;
     }
-    this.emit('move');
+    dg.emit('move');
   };
   const done = () => {
     document.removeEventListener('mousemove', mvFn);
